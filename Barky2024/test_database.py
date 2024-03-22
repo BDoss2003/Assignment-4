@@ -86,6 +86,8 @@ def test_database_manager_add_bookmark(database_manager):
     cursor.execute(''' SELECT * FROM bookmarks WHERE title='test_title' ''')    
     assert cursor.fetchone()[0] == 1    
 
+# I Added this test
+    
 def test_database_manager_delete_bookmark(database_manager):
 
     # arrange
@@ -117,4 +119,4 @@ def test_database_manager_delete_bookmark(database_manager):
     cursor = conn.cursor()
     cursor.execute(''' SELECT * FROM bookmarks WHERE title='test_title' ''')    
     result = cursor.fetchone()
-    assert result is None or result[0] ==0
+    assert result is None or result[0] == 0
