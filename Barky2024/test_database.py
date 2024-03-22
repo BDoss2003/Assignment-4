@@ -86,7 +86,7 @@ def test_database_manager_add_bookmark(database_manager):
     cursor.execute(''' SELECT * FROM bookmarks WHERE title='test_title' ''')    
     assert cursor.fetchone()[0] == 1    
 
-# I Added this test
+# I Added the DELTE and the SELECT test
     
 def test_database_manager_delete_bookmark(database_manager):
 
