@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS bookmarks
 import sqlite3
 
 class DatabaseManager:
+    
     def __init__(self, database_filename) -> None:
         # added this to persist the name of the database file
         self.database_filename = database_filename

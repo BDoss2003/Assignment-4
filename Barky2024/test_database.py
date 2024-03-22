@@ -2,6 +2,8 @@
 # that said, the database module could certain be refactored to achieve decoupling
 # in fact, either the implementation of the Unit of Work or just changing to sqlalchemy would be good.
 
+# I added a test for delete and made sure things were commented.  I did not create any tests for the commands 
+# becuase this module is drawing on that heavily.
 import os
 from datetime import datetime, timezone
 import sqlite3
@@ -14,6 +16,8 @@ from database import DatabaseManager
 @pytest.fixture
 def database_manager() -> DatabaseManager:
     """
+    A pytest fixture to set up a DatabaseManager instance for testing.
+
     What is a fixture? https://docs.pytest.org/en/stable/fixture.html#what-fixtures-are
     """
     filename = "test_bookmarks.db"
@@ -25,6 +29,9 @@ def database_manager() -> DatabaseManager:
 
 
 def test_database_manager_create_table(database_manager):
+    """
+    Test case to verify the creation of a table by the DatabaseManager.
+    """
     # arrange and act
     database_manager.create_table(
         "bookmarks",
@@ -44,12 +51,14 @@ def test_database_manager_create_table(database_manager):
     assert cursor.fetchone()[0] == 1
 
     #cleanup
-    # this is probably not really needed
+    # this is probably not really needed but it tests the drop function
     database_manager.drop_table("bookmarks")
 
 
 def test_database_manager_add_bookmark(database_manager):
-
+    """
+    Test case to verify adding a bookmark to the database.
+    """
     # arrange
     database_manager.create_table(
         "bookmarks",
@@ -102,6 +111,7 @@ def test_database_manager_delete_bookmark(database_manager):
     
     #act
     database_manager.delete("bookmarks", {"title": "test_title"})
+    
     # assert
     conn = database_manager.connection
     cursor = conn.cursor()
